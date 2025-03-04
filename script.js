@@ -1,73 +1,71 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const input = document.getElementById("todo-input");
-  const addButton = document.getElementById("add-todo");
-  const todoList = document.getElementById("todo-list");
+document.getElementById('add-todo').addEventListener('click', addTask);
+document.getElementById('focus-mode').addEventListener('click', toggleFocusMode);
 
-  // Load tasks from localStorage on page load
-  function loadTasks() {
-    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    tasks.forEach(task => addTaskToDOM(task));
+let taskList = [];
+let suggestedTasks = ["Take a short walk", "Read a chapter of a book", "Organize your workspace", "Exercise for 10 minutes"];
+let upcomingEvents = [
+  { title: "Meeting with Team", date: "2025-03-10" },
+  { title: "Doctor's Appointment", date: "2025-03-12" },
+];
+
+function addTask() {
+  const taskInput = document.getElementById('todo-input');
+  const taskDate = document.getElementById('task-date').value;
+  
+  if (taskInput.value.trim() !== "") {
+    const task = { name: taskInput.value, date: taskDate };
+    taskList.push(task);
+    taskInput.value = "";
+    displayTasks();
   }
+}
 
-  // Save tasks to localStorage
-  function saveTasks() {
-    const tasks = [];
-    document.querySelectorAll("#todo-list li span").forEach(span => {
-      tasks.push(span.textContent.trim());
-    });
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }
-
-  // Add task to DOM
-  function addTaskToDOM(task) {
-    const li = document.createElement("li");
-
-    const span = document.createElement("span");
-    span.textContent = task;
-
-    const editButton = document.createElement("button");
-    editButton.textContent = "Edit";
-    editButton.classList.add("edit-btn");
-    
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "Delete";
-    deleteButton.classList.add("delete-btn");
-
-    // Append elements
-    li.appendChild(span);
-    li.appendChild(editButton);
-    li.appendChild(deleteButton);
+function displayTasks() {
+  const todoList = document.getElementById('todo-list');
+  todoList.innerHTML = "";
+  taskList.forEach((task, index) => {
+    const li = document.createElement('li');
+    li.textContent = `${task.name} - ${task.date || "No date"}`;
     todoList.appendChild(li);
+  });
+}
 
-    // Edit task functionality
-    editButton.addEventListener("click", () => {
-      const newTask = prompt("Edit your task:", span.textContent);
-      if (newTask) {
-        span.textContent = newTask;
-        saveTasks(); // Update localStorage after editing
+function toggleFocusMode() {
+  document.body.classList.toggle('focus-mode');
+  const focusButton = document.getElementById('focus-mode');
+  focusButton.classList.toggle('active');
+  if (document.body.classList.contains('focus-mode')) {
+    document.querySelectorAll('.todo-container > div').forEach((section) => {
+      if (!section.id === 'todo-list') {
+        section.style.display = 'none';
       }
     });
-
-    // Delete task functionality with confirmation
-    deleteButton.addEventListener("click", () => {
-      const confirmed = confirm("Are you sure you want to delete this task?");
-      if (confirmed) {
-        li.remove();
-        saveTasks(); // Update localStorage after deletion
-      }
+  } else {
+    document.querySelectorAll('.todo-container > div').forEach((section) => {
+      section.style.display = 'block';
     });
   }
+}
 
-  // Add new task on button click
-  addButton.addEventListener("click", () => {
-    const taskText = input.value.trim();
-    if (taskText) {
-      addTaskToDOM(taskText);
-      input.value = ''; // Clear input after adding task
-      saveTasks(); // Save tasks to localStorage after adding
-    }
+function showSuggestedTasks() {
+  const suggestionsList = document.getElementById('suggestions-list');
+  suggestionsList.innerHTML = "";
+  suggestedTasks.forEach(task => {
+    const li = document.createElement('li');
+    li.textContent = task;
+    suggestionsList.appendChild(li);
   });
+}
 
-  // Load tasks when the page loads
-  loadTasks();
-});
+function showUpcomingEvents() {
+  const eventsList = document.getElementById('events-list');
+  eventsList.innerHTML = "";
+  upcomingEvents.forEach(event => {
+    const li = document.createElement('li');
+    li.textContent = `${event.title} - ${event.date}`;
+    eventsList.appendChild(li);
+  });
+}
+
+showSuggestedTasks();
+showUpcomingEvents();

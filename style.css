@@ -1,113 +1,147 @@
-/* General styles for the body */
+/* General Styles */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
+  font-family: 'Poppins', Arial, sans-serif;
+  background-color: #fdf2f2;  /* Light pastel pink */
+  color: #333;
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
 }
 
-/* Container for the todo list */
+/* Container */
 .todo-container {
+  max-width: 800px;
+  margin: 20px auto;
   background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 500px;
-  text-align: center;
+  padding: 25px;
+  border-radius: 12px;  /* Rounded corners */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f1a7c1;  /* Soft pink border */
+  background: linear-gradient(135deg, #ffcccc, #f1a7c1);  /* Gradient background */
 }
 
-/* Heading style */
+/* Header */
 h1 {
+  text-align: center;
+  font-size: 2.5em;
+  color: #ff5b8f;  /* Bright pink */
+  font-weight: 600;
   margin-bottom: 20px;
-  color: #333;
-  font-size: 2em;
 }
 
-/* Input field styling */
-#todo-input {
+/* Input Fields and Textareas */
+input[type="text"],
+input[type="date"],
+textarea {
   width: 100%;
-  padding: 10px;
-  font-size: 1rem;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  margin-bottom: 10px;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #f1a7c1;  /* Soft pink border */
+  border-radius: 8px;
   box-sizing: border-box;
+  font-size: 1em;
+  background-color: #fef4f4;  /* Light pink background */
 }
 
-/* Add Task button styling */
-#add-todo {
-  padding: 10px 20px;
-  background-color: #4CAF50;
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+  border-color: #ff5b8f;  /* Pink border on focus */
+  outline: none;
+  box-shadow: 0 0 8px rgba(255, 91, 143, 0.4);
+}
+
+/* Buttons */
+button {
+  background-color: #ff5b8f;  /* Bright pink */
   color: white;
-  font-size: 1rem;
+  padding: 12px 18px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-top: 10px;
-  width: 100%;
-  box-sizing: border-box;
+  font-size: 1.1em;
   transition: background-color 0.3s ease;
 }
 
-#add-todo:hover {
-  background-color: #45a049;
+button:hover {
+  background-color: #f04c79;  /* Darker pink on hover */
 }
 
-/* List of tasks styling */
-ul#todo-list {
-  list-style-type: none;
-  padding: 0;
+#focus-mode {
+  background-color: #6a6eff;  /* Purple */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+#focus-mode.active {
+  background-color: #58a1ff;  /* Lighter blue when active */
+}
+
+/* Suggested Tasks, Events, and Goals Section */
+#suggested-tasks,
+#upcoming-events,
+#notes-section,
+#goals-section {
   margin-top: 20px;
 }
 
-/* Individual task item styling */
-ul#todo-list li {
-  background-color: #fafafa;
+/* Lists Styling */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
   padding: 12px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Completed task styling */
-ul#todo-list li.completed {
-  text-decoration: line-through;
-  background-color: #d3ffd3;
-}
-
-/* Buttons for each task */
-ul#todo-list li button {
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9rem;
+  background-color: #f9e0e9;  /* Light pink for list items */
+  margin: 5px 0;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 1.1em;
   transition: background-color 0.3s ease;
 }
 
-ul#todo-list li .complete {
-  background-color: #4CAF50;
-  color: white;
-  margin-right: 10px;
+ul li:hover {
+  background-color: #ffdfdf;  /* Lighter pink on hover */
 }
 
-ul#todo-list li .complete:hover {
-  background-color: #45a049;
+/* Goals Section */
+#goals-section textarea {
+  height: 120px;
+  background-color: #fff5f5;  /* Lightest pink */
+  border-color: #f1a7c1;
 }
 
-ul#todo-list li .delete {
-  background-color: #f44336;
-  color: white;
+#goals-section label {
+  font-size: 1.1em;
+  font-weight: 500;
+  margin-top: 15px;
+  color: #ff5b8f;
 }
 
-ul#todo-list li .delete:hover {
-  background-color: #e53935;
+/* Notes Section */
+#notes-section textarea {
+  height: 150px;
+  background-color: #fff5f5;  /* Light pink background */
+  border-color: #f1a7c1;
+}
+
+/* Focus Mode */
+body.focus-mode .todo-container {
+  background-color: #f0f8ff;  /* Light blue background during focus mode */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+body.focus-mode h1 {
+  color: #0066ff;  /* Blue color for the header in focus mode */
+}
+
+body.focus-mode button,
+body.focus-mode #focus-mode {
+  background-color: #0066ff;  /* Blue buttons */
+}
+
+body.focus-mode #focus-mode.active {
+  background-color: #58a1ff;  /* Lighter blue */
 }
