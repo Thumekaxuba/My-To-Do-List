@@ -1,85 +1,75 @@
-// Get DOM elements
-const addTodoButton = document.getElementById('add-todo');
-const todoInput = document.getElementById('todo-input');
-const taskDate = document.getElementById('task-date');
-const todayTasksList = document.getElementById('today-tasks-list');
-const upcomingTasksList = document.getElementById('upcoming-tasks-list');
+const focusModeButton = document.getElementById("focus-mode");
+const todoContainer = document.querySelector(".todo-container");
+const addTodoButton = document.getElementById("add-todo");
+const todoInput = document.getElementById("todo-input");
+const todoDate = document.getElementById("todo-date");
+const todoList = document.getElementById("todo-list");
+const upcomingTasksList = document.getElementById("upcoming-tasks-list");
+const saveNotesButton = document.getElementById("save-notes");
+const saveGoalsButton = document.getElementById("save-goals");
+const notesText = document.getElementById("notes-text");
+const goalsText = document.getElementById("goals-text");
+const goalProgress = document.getElementById("goal-progress");
+const progressValue = document.getElementById("progress-value");
 
-// Get today's date
-const today = new Date();
-const todayDateString = today.toLocaleDateString();
+// Toggle Focus Mode
+focusModeButton.addEventListener("click", () => {
+  focusModeButton.classList.toggle("active");
+  todoContainer.classList.toggle("focus-active");
+});
 
-// Function to create task item
-function createTaskItem(taskText, taskDateValue) {
-  const li = document.createElement('li');
-  li.classList.add('task-item');
+// Add Task
+addTodoButton.addEventListener("click", () => {
+  const task = todoInput.value;
+  const date = todoDate.value;
 
-  // Add task text and date
-  li.innerHTML = `${taskText} <span>${taskDateValue}</span>`;
+  if (task && date) {
+    const taskElement = document.createElement("li");
+    taskElement.textContent = `${task} - Due: ${date}`;
 
-  // Create icons for edit, delete, and complete
-  const icons = document.createElement('div');
-  icons.classList.add('task-icons');
+    const taskIcons = document.createElement("span");
+    taskIcons.classList.add("task-icons");
 
-  const editIcon = document.createElement('i');
-  editIcon.classList.add('fas', 'fa-edit');
-  editIcon.addEventListener('click', () => editTask(li));
+    // Edit Icon
+    const editIcon = document.createElement("i");
+    editIcon.classList.add("fas", "fa-edit");
+    editIcon.addEventListener("click", () => {
+      todoInput.value = task;
+      todoDate.value = date;
+      taskElement.remove();
+    });
 
-  const deleteIcon = document.createElement('i');
-  deleteIcon.classList.add('fas', 'fa-trash');
-  deleteIcon.addEventListener('click', () => deleteTask(li));
+    // Delete Icon
+    const deleteIcon = document.createElement("i");
+    deleteIcon.classList.add("fas", "fa-trash-alt");
+    deleteIcon.addEventListener("click", () => {
+      taskElement.remove();
+    });
 
-  const completeIcon = document.createElement('i');
-  completeIcon.classList.add('fas', 'fa-check-circle');
-  completeIcon.addEventListener('click', () => completeTask(li));
+    taskIcons.appendChild(editIcon);
+    taskIcons.appendChild(deleteIcon);
 
-  icons.append(editIcon, deleteIcon, completeIcon);
-  li.appendChild(icons);
+    taskElement.appendChild(taskIcons);
+    todoList.appendChild(taskElement);
 
-  return li;
-}
-
-// Function to add task to list
-function addTask() {
-  const taskText = todoInput.value;
-  const date = taskDate.value;
-  const taskDateValue = new Date(date).toLocaleDateString();
-
-  if (!taskText || !date) return;
-
-  const taskItem = createTaskItem(taskText, taskDateValue);
-
-  // Check if the task is for today or a later date
-  const taskDateObj = new Date(date);
-  if (taskDateValue === todayDateString) {
-    todayTasksList.appendChild(taskItem);  // Add to Today's Tasks
-  } else if (taskDateObj > today) {
-    upcomingTasksList.appendChild(taskItem);  // Add to Upcoming Tasks
+    todoInput.value = "";
+    todoDate.value = "";
   }
+});
 
-  // Clear input fields
-  todoInput.value = '';
-  taskDate.value = '';
-}
+// Save Notes
+saveNotesButton.addEventListener("click", () => {
+  localStorage.setItem("notes", notesText.value);
+  alert("Notes saved!");
+});
 
-// Function to edit task
-function editTask(taskItem) {
-  const newText = prompt('Edit your task:', taskItem.firstChild.textContent.trim());
-  if (newText) {
-    taskItem.firstChild.textContent = newText;
-  }
-}
+// Save Goals
+saveGoalsButton.addEventListener("click", () => {
+  localStorage.setItem("goals", goalsText.value);
+  alert("Goals saved!");
+});
 
-// Function to delete task
-function deleteTask(taskItem) {
-  taskItem.remove();
-}
-
-// Function to mark task as complete
-function completeTask(taskItem) {
-  taskItem.style.textDecoration = 'line-through';
-  taskItem.style.color = 'grey';
-}
-
-// Event listener for Add Task button
-addTodoButton.addEventListener('click', addTask);
+// Update Progress Bar
+goalProgress.addEventListener("input", () => {
+  progressValue.textContent = goalProgress.value + "%";
+});

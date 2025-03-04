@@ -59,6 +59,21 @@ button:hover {
   background-color: #f04c79;
 }
 
+/* Focus Mode Button */
+#focus-mode {
+  background-color: #6a6eff;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+#focus-mode.active {
+  background-color: #58a1ff;
+}
+
 /* Sticky Notes Styling */
 .sticky-notes-container {
   display: flex; /* This will make them appear side by side */
@@ -72,7 +87,6 @@ button:hover {
   padding: 15px;
   width: 45%; /* Adjust width to ensure they fit side by side */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  /* Removed the skew/rotation effect */
 }
 
 .sticky-note h3 {
@@ -118,27 +132,82 @@ ul li:hover {
   color: #ff5b8f;
 }
 
-/* Notes Section */
+/* Notes Section Styling */
+#notes-section {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 #notes-section textarea {
   height: 150px;
   background-color: #fff5f5;
   border-color: #f1a7c1;
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1em;
 }
 
-/* Focus Mode Button */
-#focus-mode {
+#save-notes {
+  background-color: #ff5b8f;
+  color: white;
+  padding: 10px 15px;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#save-notes:hover {
+  background-color: #f04c79;
+}
+
+/* Goals Section Styling */
+#goals-section {
+  background-color: #fff4e1;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#goals-section textarea {
+  background-color: #fff8f0;
+  border-color: #f1c3b3;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1em;
+  width: 100%;
+}
+
+#save-goals {
   background-color: #6a6eff;
   color: white;
-  padding: 12px 20px;
+  padding: 10px 15px;
+  margin-top: 10px;
   border-radius: 8px;
-  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-#focus-mode.active {
+#save-goals:hover {
   background-color: #58a1ff;
 }
 
-/* Monthly & Weekly Goals */
-#goals-section textarea {
-  margin-bottom: 15px;
+#progress-bar {
+  margin-top: 15px;
+}
+
+#goal-progress {
+  width: 100%;
+  background-color: #f1a7c1;
+  border-radius: 5px;
+}
+
+#progress-value {
+  display: inline-block;
+  margin-left: 10px;
 }
