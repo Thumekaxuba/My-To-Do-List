@@ -60,13 +60,19 @@ button:hover {
 }
 
 /* Sticky Notes Styling */
+.sticky-notes-container {
+  display: flex; /* This will make them appear side by side */
+  gap: 20px; /* Add space between the sticky notes */
+  margin-top: 30px;
+}
+
 .sticky-note {
   background-color: #fffdca;
   border-radius: 10px;
   padding: 15px;
-  margin-top: 30px;
+  width: 45%; /* Adjust width to ensure they fit side by side */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transform: rotate(-3deg);
+  /* Removed the skew/rotation effect */
 }
 
 .sticky-note h3 {
