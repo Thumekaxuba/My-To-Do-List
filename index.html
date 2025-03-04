@@ -10,14 +10,12 @@
   <div class="todo-container">
     <h1>To-Do List</h1>
 
-    <!-- Input field to add a new task -->
-    <input type="text" id="todo-input" placeholder="Enter a new task" />
-
-    <!-- Add Task button -->
-    <button id="add-todo">Add Task</button>
-
-    <!-- Calendar to select task date -->
-    <input type="date" id="task-date" />
+    <!-- Input field and calendar in one bar -->
+    <div class="task-input-bar">
+      <input type="text" id="todo-input" placeholder="Enter a new task" />
+      <input type="date" id="task-date" />
+      <button id="add-todo">Add Task</button>
+    </div>
 
     <!-- Section for Suggested Tasks -->
     <div id="suggested-tasks">
@@ -53,7 +51,7 @@
       <textarea id="weekly-goals" placeholder="Write your weekly goals..."></textarea>
     </div>
 
-    <!-- List of tasks -->
+    <!-- List of tasks (moved below Add Task button) -->
     <ul id="todo-list"></ul>
   </div>
 
