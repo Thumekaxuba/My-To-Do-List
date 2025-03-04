@@ -139,7 +139,7 @@ body.focus-mode h1 {
 
 body.focus-mode button,
 body.focus-mode #focus-mode {
-  background-color: #0066ff;  /* Blue buttons */
+  background-color: #83a2d1;  /* Blue buttons */
 }
 
 body.focus-mode #focus-mode.active {
