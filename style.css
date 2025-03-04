@@ -8,7 +8,7 @@ body {
 }
 
 .todo-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 20px auto;
   background-color: #fff;
   padding: 25px;
@@ -59,7 +59,22 @@ button:hover {
   background-color: #f04c79;
 }
 
-/* Task List Styling */
+/* Sticky Notes Styling */
+.sticky-note {
+  background-color: #fffdca;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transform: rotate(-3deg);
+}
+
+.sticky-note h3 {
+  font-size: 1.8em;
+  color: #ff5b8f;
+  margin-bottom: 15px;
+}
+
 ul {
   list-style-type: none;
   padding: 0;
@@ -97,6 +112,14 @@ ul li:hover {
   color: #ff5b8f;
 }
 
+/* Notes Section */
+#notes-section textarea {
+  height: 150px;
+  background-color: #fff5f5;
+  border-color: #f1a7c1;
+}
+
+/* Focus Mode Button */
 #focus-mode {
   background-color: #6a6eff;
   color: white;
@@ -109,9 +132,7 @@ ul li:hover {
   background-color: #58a1ff;
 }
 
-/* Notes Section */
-#notes-section textarea {
-  height: 150px;
-  background-color: #fff5f5;
-  border-color: #f1a7c1;
+/* Monthly & Weekly Goals */
+#goals-section textarea {
+  margin-bottom: 15px;
 }

@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>To-Do List</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Add Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
   <div class="todo-container">
@@ -17,18 +19,19 @@
       <button id="add-todo">Add Task</button>
     </div>
 
-    <!-- Upcoming Tasks Section (auto-populated based on task date) -->
-    <div id="upcoming-tasks">
-      <h3>Upcoming Tasks</h3>
-      <ul id="upcoming-tasks-list">
-        <!-- Upcoming tasks will appear here -->
+    <!-- Sticky Note for Today's Tasks -->
+    <div id="today-tasks" class="sticky-note">
+      <h3>Today's Tasks</h3>
+      <ul id="today-tasks-list">
+        <!-- Today's tasks will appear here -->
       </ul>
     </div>
 
-    <!-- List of tasks -->
-    <div id="todo-list-section">
-      <ul id="todo-list">
-        <!-- Tasks will appear here -->
+    <!-- Sticky Note for Upcoming Tasks -->
+    <div id="upcoming-tasks" class="sticky-note">
+      <h3>Upcoming Tasks</h3>
+      <ul id="upcoming-tasks-list">
+        <!-- Upcoming tasks will appear here -->
       </ul>
     </div>
 

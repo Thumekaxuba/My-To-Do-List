@@ -2,8 +2,12 @@
 const addTodoButton = document.getElementById('add-todo');
 const todoInput = document.getElementById('todo-input');
 const taskDate = document.getElementById('task-date');
-const todoList = document.getElementById('todo-list');
+const todayTasksList = document.getElementById('today-tasks-list');
 const upcomingTasksList = document.getElementById('upcoming-tasks-list');
+
+// Get today's date
+const today = new Date();
+const todayDateString = today.toLocaleDateString();
 
 // Function to create task item
 function createTaskItem(taskText, taskDateValue) {
@@ -45,15 +49,12 @@ function addTask() {
 
   const taskItem = createTaskItem(taskText, taskDateValue);
 
-  // Check if the task is for tomorrow or a later date
+  // Check if the task is for today or a later date
   const taskDateObj = new Date(date);
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-
-  if (taskDateObj >= tomorrow) {
+  if (taskDateValue === todayDateString) {
+    todayTasksList.appendChild(taskItem);  // Add to Today's Tasks
+  } else if (taskDateObj > today) {
     upcomingTasksList.appendChild(taskItem);  // Add to Upcoming Tasks
-  } else {
-    todoList.appendChild(taskItem);  // Add to normal task list
   }
 
   // Clear input fields
