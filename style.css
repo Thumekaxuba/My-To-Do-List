@@ -1,37 +1,35 @@
 /* General Styles */
 body {
   font-family: 'Poppins', Arial, sans-serif;
-  background-color: #fdf2f2;  /* Light pastel pink */
+  background-color: #fdf2f2;
   color: #333;
   margin: 0;
   padding: 0;
 }
 
-/* Container */
 .todo-container {
   max-width: 800px;
   margin: 20px auto;
   background-color: #fff;
   padding: 25px;
-  border-radius: 12px;  /* Rounded corners */
+  border-radius: 12px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  border: 1px solid #f1a7c1;  /* Soft pink border */
-  background: linear-gradient(135deg, #ffcccc, #f1a7c1);  /* Gradient background */
+  border: 1px solid #f1a7c1;
+  background: linear-gradient(135deg, #ffcccc, #f1a7c1);
 }
 
-/* Header */
 h1 {
   text-align: center;
   font-size: 2.5em;
-  color: #ff5b8f;  /* Bright pink */
+  color: #ff5b8f;
   font-weight: 600;
   margin-bottom: 20px;
 }
 
-/* Task Input Bar (combining text input and date input) */
+/* Task Input Bar */
 .task-input-bar {
   display: flex;
-  gap: 10px;  /* Space between input fields */
+  gap: 10px;
   justify-content: center;
   align-items: center;
 }
@@ -39,15 +37,15 @@ h1 {
 input[type="text"],
 input[type="date"] {
   padding: 12px;
-  border: 1px solid #f1a7c1;  /* Soft pink border */
+  border: 1px solid #f1a7c1;
   border-radius: 8px;
   font-size: 1em;
-  background-color: #fef4f4;  /* Light pink background */
+  background-color: #fef4f4;
   width: 200px;
 }
 
 button {
-  background-color: #ff5b8f;  /* Bright pink */
+  background-color: #ff5b8f;
   color: white;
   padding: 12px 18px;
   border: none;
@@ -58,30 +56,10 @@ button {
 }
 
 button:hover {
-  background-color: #f04c79;  /* Darker pink on hover */
+  background-color: #f04c79;
 }
 
-#focus-mode {
-  background-color: #6a6eff;  /* Purple */
-  color: white;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-weight: 600;
-}
-
-#focus-mode.active {
-  background-color: #58a1ff;  /* Lighter blue when active */
-}
-
-/* Suggested Tasks, Events, and Goals Section */
-#suggested-tasks,
-#upcoming-events,
-#notes-section,
-#goals-section {
-  margin-top: 20px;
-}
-
-/* Lists Styling */
+/* Task List Styling */
 ul {
   list-style-type: none;
   padding: 0;
@@ -89,54 +67,51 @@ ul {
 
 ul li {
   padding: 12px;
-  background-color: #f9e0e9;  /* Light pink for list items */
+  background-color: #f9e0e9;
   margin: 5px 0;
   border-radius: 8px;
   font-weight: 500;
   font-size: 1.1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   transition: background-color 0.3s ease;
 }
 
 ul li:hover {
-  background-color: #ffdfdf;  /* Lighter pink on hover */
+  background-color: #ffdfdf;
 }
 
-/* Goals Section */
-#goals-section textarea {
-  height: 120px;
-  background-color: #fff5f5;  /* Lightest pink */
-  border-color: #f1a7c1;
+.task-icons {
+  display: flex;
+  gap: 10px;
+  font-size: 1.2em;
 }
 
-#goals-section label {
-  font-size: 1.1em;
-  font-weight: 500;
-  margin-top: 15px;
+.task-icons i {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.task-icons i:hover {
   color: #ff5b8f;
+}
+
+#focus-mode {
+  background-color: #6a6eff;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+#focus-mode.active {
+  background-color: #58a1ff;
 }
 
 /* Notes Section */
 #notes-section textarea {
   height: 150px;
-  background-color: #fff5f5;  /* Light pink background */
+  background-color: #fff5f5;
   border-color: #f1a7c1;
-}
-
-/* Focus Mode */
-body.focus-mode .todo-container {
-  background-color: #f0f8ff;  /* Light blue background during focus mode */
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-}
-
-body.focus-mode h1 {
-  color: #0066ff;  /* Blue color for the header in focus mode */
-}
-
-body.focus-mode button,
-body.focus-mode #focus-mode {
-  background-color: #0066ff;  /* Blue buttons */
-}
-
-body.focus-mode #focus-mode.active {
-  background-color: #58a1ff;  /* Lighter blue */
 }

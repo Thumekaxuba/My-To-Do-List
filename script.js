@@ -1,71 +1,84 @@
-document.getElementById('add-todo').addEventListener('click', addTask);
-document.getElementById('focus-mode').addEventListener('click', toggleFocusMode);
+// Get DOM elements
+const addTodoButton = document.getElementById('add-todo');
+const todoInput = document.getElementById('todo-input');
+const taskDate = document.getElementById('task-date');
+const todoList = document.getElementById('todo-list');
+const upcomingTasksList = document.getElementById('upcoming-tasks-list');
 
-let taskList = [];
-let suggestedTasks = ["Take a short walk", "Read a chapter of a book", "Organize your workspace", "Exercise for 10 minutes"];
-let upcomingEvents = [
-  { title: "Meeting with Team", date: "2025-03-10" },
-  { title: "Doctor's Appointment", date: "2025-03-12" },
-];
+// Function to create task item
+function createTaskItem(taskText, taskDateValue) {
+  const li = document.createElement('li');
+  li.classList.add('task-item');
 
+  // Add task text and date
+  li.innerHTML = `${taskText} <span>${taskDateValue}</span>`;
+
+  // Create icons for edit, delete, and complete
+  const icons = document.createElement('div');
+  icons.classList.add('task-icons');
+
+  const editIcon = document.createElement('i');
+  editIcon.classList.add('fas', 'fa-edit');
+  editIcon.addEventListener('click', () => editTask(li));
+
+  const deleteIcon = document.createElement('i');
+  deleteIcon.classList.add('fas', 'fa-trash');
+  deleteIcon.addEventListener('click', () => deleteTask(li));
+
+  const completeIcon = document.createElement('i');
+  completeIcon.classList.add('fas', 'fa-check-circle');
+  completeIcon.addEventListener('click', () => completeTask(li));
+
+  icons.append(editIcon, deleteIcon, completeIcon);
+  li.appendChild(icons);
+
+  return li;
+}
+
+// Function to add task to list
 function addTask() {
-  const taskInput = document.getElementById('todo-input');
-  const taskDate = document.getElementById('task-date').value;
-  
-  if (taskInput.value.trim() !== "") {
-    const task = { name: taskInput.value, date: taskDate };
-    taskList.push(task);
-    taskInput.value = "";
-    displayTasks();
-  }
-}
+  const taskText = todoInput.value;
+  const date = taskDate.value;
+  const taskDateValue = new Date(date).toLocaleDateString();
 
-function displayTasks() {
-  const todoList = document.getElementById('todo-list');
-  todoList.innerHTML = "";
-  taskList.forEach((task, index) => {
-    const li = document.createElement('li');
-    li.textContent = `${task.name} - ${task.date || "No date"}`;
-    todoList.appendChild(li);
-  });
-}
+  if (!taskText || !date) return;
 
-function toggleFocusMode() {
-  document.body.classList.toggle('focus-mode');
-  const focusButton = document.getElementById('focus-mode');
-  focusButton.classList.toggle('active');
-  if (document.body.classList.contains('focus-mode')) {
-    document.querySelectorAll('.todo-container > div').forEach((section) => {
-      if (!section.id === 'todo-list') {
-        section.style.display = 'none';
-      }
-    });
+  const taskItem = createTaskItem(taskText, taskDateValue);
+
+  // Check if the task is for tomorrow or a later date
+  const taskDateObj = new Date(date);
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  if (taskDateObj >= tomorrow) {
+    upcomingTasksList.appendChild(taskItem);  // Add to Upcoming Tasks
   } else {
-    document.querySelectorAll('.todo-container > div').forEach((section) => {
-      section.style.display = 'block';
-    });
+    todoList.appendChild(taskItem);  // Add to normal task list
+  }
+
+  // Clear input fields
+  todoInput.value = '';
+  taskDate.value = '';
+}
+
+// Function to edit task
+function editTask(taskItem) {
+  const newText = prompt('Edit your task:', taskItem.firstChild.textContent.trim());
+  if (newText) {
+    taskItem.firstChild.textContent = newText;
   }
 }
 
-function showSuggestedTasks() {
-  const suggestionsList = document.getElementById('suggestions-list');
-  suggestionsList.innerHTML = "";
-  suggestedTasks.forEach(task => {
-    const li = document.createElement('li');
-    li.textContent = task;
-    suggestionsList.appendChild(li);
-  });
+// Function to delete task
+function deleteTask(taskItem) {
+  taskItem.remove();
 }
 
-function showUpcomingEvents() {
-  const eventsList = document.getElementById('events-list');
-  eventsList.innerHTML = "";
-  upcomingEvents.forEach(event => {
-    const li = document.createElement('li');
-    li.textContent = `${event.title} - ${event.date}`;
-    eventsList.appendChild(li);
-  });
+// Function to mark task as complete
+function completeTask(taskItem) {
+  taskItem.style.textDecoration = 'line-through';
+  taskItem.style.color = 'grey';
 }
 
-showSuggestedTasks();
-showUpcomingEvents();
+// Event listener for Add Task button
+addTodoButton.addEventListener('click', addTask);
