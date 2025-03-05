@@ -1,52 +1,217 @@
-/* General styles */
+/* General Styles */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', Arial, sans-serif;
+  background-color: #fdf2f2;
+  color: #333;
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: #f4f4f4;
 }
 
 .todo-container {
-  width: 90%;
-  max-width: 600px;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  max-width: 900px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f1a7c1;
+  background: linear-gradient(135deg, #ffcccc, #f1a7c1);
 }
 
-/* Flexbox for input bar */
+h1 {
+  text-align: center;
+  font-size: 2.5em;
+  color: #ff5b8f;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Task Input Bar */
 .task-input-bar {
   display: flex;
-  flex-wrap: wrap;
   gap: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
-.task-input-bar input,
-.task-input-bar button {
-  flex: 1;
-  padding: 10px;
+input[type="text"],
+input[type="date"] {
+  padding: 12px;
+  border: 1px solid #f1a7c1;
+  border-radius: 8px;
+  font-size: 1em;
+  background-color: #fef4f4;
+  width: 200px;
 }
 
-/* Sticky notes layout */
+button {
+  background-color: #ff5b8f;
+  color: white;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1em;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #f04c79;
+}
+
+/* Focus Mode Button */
+#focus-mode {
+  background-color: #6a6eff;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+#focus-mode.active {
+  background-color: #58a1ff;
+}
+
+/* Sticky Notes Styling */
 .sticky-notes-container {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  display: flex; /* This will make them appear side by side */
+  gap: 20px; /* Add space between the sticky notes */
+  margin-top: 30px;
 }
 
-/* Sticky notes styling */
 .sticky-note {
-  background: #ffeb3b;
-  padding: 10px;
-  border-radius: 5px;
-  min-height: 100px;
+  background-color: #fffdca;
+  border-radius: 10px;
+  padding: 15px;
+  width: 45%; /* Adjust width to ensure they fit side by side */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+
+.sticky-note h3 {
+  font-size: 1.8em;
+  color: #ff5b8f;
+  margin-bottom: 15px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  padding: 12px;
+  background-color: #f9e0e9;
+  margin: 5px 0;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 1.1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+ul li:hover {
+  background-color: #ffdfdf;
+}
+
+.task-icons {
+  display: flex;
+  gap: 10px;
+  font-size: 1.2em;
+}
+
+.task-icons i {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.task-icons i:hover {
+  color: #ff5b8f;
+}
+
+/* Notes Section Styling */
+#notes-section {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#notes-section textarea {
+  height: 150px;
+  background-color: #fff5f5;
+  border-color: #f1a7c1;
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1em;
+}
+
+#save-notes {
+  background-color: #ff5b8f;
+  color: white;
+  padding: 10px 15px;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#save-notes:hover {
+  background-color: #f04c79;
+}
+
+/* Goals Section Styling */
+#goals-section {
+  background-color: #fff4e1;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#goals-section textarea {
+  background-color: #fff8f0;
+  border-color: #f1c3b3;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1em;
+  width: 100%;
+}
+
+#save-goals {
+  background-color: #6a6eff;
+  color: white;
+  padding: 10px 15px;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#save-goals:hover {
+  background-color: #58a1ff;
+}
+
+#progress-bar {
+  margin-top: 15px;
+}
+
+#goal-progress {
+  width: 100%;
+  background-color: #f1a7c1;
+  border-radius: 5px;
+}
+
+#progress-value {
+  display: inline-block;
+  margin-left: 10px;
+}
+
 
 /* Mobile adjustments */
 @media (max-width: 600px) {
