@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Notes</title>
-  <link rel="stylesheet" href="notes.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="notes-container">
@@ -17,7 +17,7 @@
     // Function to load and display saved notes from localStorage
     function loadNotes() {
       const savedNotes = JSON.parse(localStorage.getItem('notes')) || [];
-
+      
       if (savedNotes.length === 0) {
         document.getElementById('notes-list').innerHTML = "<p>No notes saved yet.</p>";
       } else {
@@ -25,14 +25,14 @@
         savedNotes.forEach(note => {
           notesHTML += `<div class="note-item">
                           <p><strong>Date:</strong> ${note.date}</p>
-                          <p>${note.notes}</p>
+                          <p>${note.note}</p>
                         </div>`;
         });
         document.getElementById('notes-list').innerHTML = notesHTML;
       }
     }
 
-    // Function to go back to the main page (index.html)
+    // Function to go back to the previous page (home)
     function goBack() {
       window.location.href = 'index.html';  // Assuming the main page is called index.html
     }
