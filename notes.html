@@ -17,7 +17,7 @@
     // Function to load and display saved notes from localStorage
     function loadNotes() {
       const savedNotes = JSON.parse(localStorage.getItem('notes')) || [];
-      
+
       if (savedNotes.length === 0) {
         document.getElementById('notes-list').innerHTML = "<p>No notes saved yet.</p>";
       } else {
@@ -32,7 +32,7 @@
       }
     }
 
-    // Function to go back to the previous page (home)
+    // Function to go back to the main page (index.html)
     function goBack() {
       window.location.href = 'index.html';  // Assuming the main page is called index.html
     }
