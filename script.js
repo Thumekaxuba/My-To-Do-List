@@ -123,4 +123,35 @@ document.addEventListener("DOMContentLoaded", () => {
   goalProgress.addEventListener("input", () => {
     progressValue.textContent = goalProgress.value + "%";
   });
+
+  // Save Notes
+  document.getElementById("save-notes").addEventListener("click", saveNote);
+
+  // Function to save notes with the current date
+  function saveNote() {
+    const noteText = document.getElementById('notes-text').value;
+    const currentDate = new Date().toLocaleString();  // Get the current date and time
+    
+    if (noteText.trim() !== "") {
+      // Get existing notes from localStorage or create an empty array if none exist
+      const savedNotes = JSON.parse(localStorage.getItem('notes')) || [];
+      
+      // Add the new note with the current date
+      savedNotes.push({ note: noteText, date: currentDate });
+      
+      // Save the updated notes array back to localStorage
+      localStorage.setItem('notes', JSON.stringify(savedNotes));
+      
+      // Clear the textarea after saving
+      document.getElementById('notes-text').value = '';
+      alert("Note saved successfully!");
+    } else {
+      alert("Please write a note before saving.");
+    }
+  }
+
+  // Function to redirect to notes.html to view saved notes
+  document.getElementById("access-notes").addEventListener("click", () => {
+    window.location.href = 'notes.html';  // Redirect to notes.html
+  });
 });

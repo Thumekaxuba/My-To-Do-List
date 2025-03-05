@@ -8,11 +8,37 @@
 </head>
 <body>
   <div class="notes-container">
-    <h1>My Notes</h1>
-    <ul id="notes-list"></ul>
-    <button onclick="clearNotes()">Clear All Notes</button>
+    <h1>Saved Notes</h1>
+    <div id="notes-list"></div>
+    <button onclick="goBack()">Go Back</button>
   </div>
 
-  <script src="notes.js"></script>
+  <script>
+    // Function to load and display saved notes from localStorage
+    function loadNotes() {
+      const savedNotes = JSON.parse(localStorage.getItem('notes')) || [];
+      
+      if (savedNotes.length === 0) {
+        document.getElementById('notes-list').innerHTML = "<p>No notes saved yet.</p>";
+      } else {
+        let notesHTML = "";
+        savedNotes.forEach(note => {
+          notesHTML += `<div class="note-item">
+                          <p><strong>Date:</strong> ${note.date}</p>
+                          <p>${note.note}</p>
+                        </div>`;
+        });
+        document.getElementById('notes-list').innerHTML = notesHTML;
+      }
+    }
+
+    // Function to go back to the previous page (home)
+    function goBack() {
+      window.location.href = 'index.html';  // Assuming the main page is called index.html
+    }
+
+    // Load notes when the page is ready
+    window.onload = loadNotes;
+  </script>
 </body>
 </html>
