@@ -15,22 +15,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
 
-  // Toggle Focus Mode
-  focusModeButton.addEventListener("click", () => {
-    focusModeButton.classList.toggle("active");
-    todoContainer.classList.toggle("focus-active");
-  });
+  // Load tasks from localStorage
+  function loadTasks() {
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks.forEach(({ text, date }) => {
+      const taskElement = createTaskElement(text, date);
+      if (date === today) {
+        todayTasksList.appendChild(taskElement);
+      } else {
+        upcomingTasksList.appendChild(taskElement);
+      }
+    });
+  }
 
-  // Function to add a task
-  function addTask() {
-    const task = todoInput.value;
-    const date = todoDate.value;
-
-    if (!task || !date) {
-      alert("Please enter a task and select a date.");
-      return;
-    }
-
+  // Create task element
+  function createTaskElement(task, date) {
     const taskElement = document.createElement("li");
     taskElement.textContent = `${task} - Due: ${date}`;
     
@@ -43,13 +42,14 @@ document.addEventListener("DOMContentLoaded", () => {
     editIcon.addEventListener("click", () => {
       todoInput.value = task;
       todoDate.value = date;
-      taskElement.remove();
+      removeTask(task, date);
     });
 
     // Delete Icon
     const deleteIcon = document.createElement("i");
     deleteIcon.classList.add("fas", "fa-trash-alt");
     deleteIcon.addEventListener("click", () => {
+      removeTask(task, date);
       taskElement.remove();
     });
 
@@ -66,42 +66,74 @@ document.addEventListener("DOMContentLoaded", () => {
     taskIcons.appendChild(completeIcon);
     taskElement.appendChild(taskIcons);
 
-    if (date === today) {
-      todayTasksList.appendChild(taskElement); // Add to today's tasks
-    } else {
-      upcomingTasksList.appendChild(taskElement); // Add to upcoming tasks
+    return taskElement;
+  }
+
+  // Function to add a task
+  function addTask() {
+    const task = todoInput.value;
+    const date = todoDate.value;
+
+    if (!task || !date) {
+      alert("Please enter a task and select a date.");
+      return;
     }
 
+    const taskElement = createTaskElement(task, date);
+
+    if (date === today) {
+      todayTasksList.appendChild(taskElement);
+    } else {
+      upcomingTasksList.appendChild(taskElement);
+    }
+
+    saveTask(task, date);
     todoInput.value = "";
     todoDate.value = "";
   }
 
+  // Save task to localStorage
+  function saveTask(task, date) {
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks.push({ text: task, date });
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
+
+  // Remove task from localStorage
+  function removeTask(task, date) {
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks = tasks.filter(t => !(t.text === task && t.date === date));
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
+
   addTodoButton.addEventListener("click", addTask);
+  loadTasks();
 
   // Save Notes
   saveNotesButton.addEventListener("click", () => {
     const now = new Date();
-    const timestamp = now.toLocaleString(); // Get date and time
+    const timestamp = now.toLocaleString();
     const notesData = JSON.parse(localStorage.getItem("notesData")) || [];
     notesData.push({ text: notesText.value, date: timestamp });
-  
     localStorage.setItem("notesData", JSON.stringify(notesData));
-  
     alert("Note saved!");
-  
     notesText.value = "";
-  
-    // Ensure saving is complete before redirecting
     setTimeout(() => {
       window.location.href = "notes.html";
-    }, 500); // Short delay to allow storage update
+    }, 500);
   });
-  
+
   // Save Goals
   saveGoalsButton.addEventListener("click", () => {
     localStorage.setItem("goals", goalsText.value);
     alert("Goals saved!");
   });
+
+  // Load Goals
+  function loadGoals() {
+    goalsText.value = localStorage.getItem("goals") || "";
+  }
+  loadGoals();
 
   // Update Progress Bar
   goalProgress.addEventListener("input", () => {
