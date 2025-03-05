@@ -1,142 +1,68 @@
-// Function to redirect to notes.html to view saved notes
-function accessNotes() {
-  window.location.href = 'notes.html';  // Redirect to notes.html
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="todo-container">
+    <h1>To-Do List</h1>
+    <!-- Input bar with task and date input -->
+    <div class="task-input-bar">
+      <input type="text" id="todo-input" placeholder="Enter a new task">
+      <input type="date" id="todo-date">
+      <button id="add-todo">Add Task</button>
+    </div>
 
-// Existing code for handling tasks, goals, and saving notes...
-document.addEventListener("DOMContentLoaded", () => {
-  const todoInput = document.getElementById("todo-input");
-  const todoDate = document.getElementById("todo-date");
-  const addTodoButton = document.getElementById("add-todo");
-  const todayTasksList = document.getElementById("todo-list"); // Today's tasks
-  const upcomingTasksList = document.getElementById("upcoming-tasks-list"); // Upcoming tasks
-  const focusModeButton = document.getElementById("focus-mode");
-  const todoContainer = document.querySelector(".todo-container");
-  const saveGoalsButton = document.getElementById("save-goals");
-  const goalsText = document.getElementById("goals-text");
-  const goalProgress = document.getElementById("goal-progress");
-  const progressValue = document.getElementById("progress-value");
+    <!-- Focus Mode Button -->
+    <button id="focus-mode"><i class="fas fa-bullseye"></i> Enable Focus Mode</button>
 
-  const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
-
-  // Load tasks from localStorage
-  function loadTasks() {
-    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    tasks.forEach(({ text, date }) => {
-      const taskElement = createTaskElement(text, date);
-      if (date === today) {
-        todayTasksList.appendChild(taskElement);
-      } else {
-        upcomingTasksList.appendChild(taskElement);
-      }
-    });
-  }
-
-  // Create task element
-  function createTaskElement(task, date) {
-    const taskElement = document.createElement("li");
-    taskElement.textContent = `${task} - Due: ${date}`;
-    
-    const taskIcons = document.createElement("span");
-    taskIcons.classList.add("task-icons");
-
-    // Edit Icon
-    const editIcon = document.createElement("i");
-    editIcon.classList.add("fas", "fa-edit");
-    editIcon.addEventListener("click", () => {
-      todoInput.value = task;
-      todoDate.value = date;
-      removeTask(task, date);
-    });
-
-    // Delete Icon
-    const deleteIcon = document.createElement("i");
-    deleteIcon.classList.add("fas", "fa-trash-alt");
-    deleteIcon.addEventListener("click", () => {
-      removeTask(task, date);
-      taskElement.remove();
-    });
-
-    // Complete Task Icon
-    const completeIcon = document.createElement("i");
-    completeIcon.classList.add("fas", "fa-check-circle");
-    completeIcon.addEventListener("click", () => {
-      taskElement.style.textDecoration = "line-through";
-      taskElement.style.opacity = "0.6";
-    });
-
-    taskIcons.appendChild(editIcon);
-    taskIcons.appendChild(deleteIcon);
-    taskIcons.appendChild(completeIcon);
-    taskElement.appendChild(taskIcons);
-
-    return taskElement;
-  }
-
-  // Function to add a task
-  function addTask() {
-    const task = todoInput.value;
-    const date = todoDate.value;
-
-    if (!task || !date) {
-      alert("Please enter a task and select a date.");
-      return;
-    }
-
-    const taskElement = createTaskElement(task, date);
-
-    if (date === today) {
-      todayTasksList.appendChild(taskElement);
-    } else {
-      upcomingTasksList.appendChild(taskElement);
-    }
-
-    saveTask(task, date);
-    todoInput.value = "";
-    todoDate.value = "";
-  }
-
-  // Save task to localStorage
-  function saveTask(task, date) {
-    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    tasks.push({ text: task, date });
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }
-
-  // Remove task from localStorage
-  function removeTask(task, date) {
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    tasks = tasks.filter(t => !(t.text === task && t.date === date));
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }
-
-  addTodoButton.addEventListener("click", addTask);
-  loadTasks();
-
-  // Save Notes
-  document.getElementById("save-notes").addEventListener("click", saveNote);
-
-  // Function to save notes with the current date
-  function saveNote() {
-    const noteText = document.getElementById('notes-text').value;
-    const currentDate = new Date().toLocaleString();  // Get the current date and time
-    
-    if (noteText.trim() !== "") {
-      // Get existing notes from localStorage or create an empty array if none exist
-      const savedNotes = JSON.parse(localStorage.getItem('notes')) || [];
+    <!-- Upcoming Tasks Sticky Notes -->
+    <div class="sticky-notes-container">
+      <div class="sticky-note" id="today-tasks">
+        <h3>Today's Tasks</h3>
+        <ul id="todo-list"></ul>
+      </div>
       
-      // Add the new note with the current date
-      savedNotes.push({ note: noteText, date: currentDate });
-      
-      // Save the updated notes array back to localStorage
-      localStorage.setItem('notes', JSON.stringify(savedNotes));
-      
-      // Clear the textarea after saving
-      document.getElementById('notes-text').value = '';
-      alert("Note saved successfully!");
-    } else {
-      alert("Please write a note before saving.");
-    }
-  }
+      <div class="sticky-note" id="upcoming-tasks">
+        <h3>Upcoming Tasks</h3>
+        <ul id="upcoming-tasks-list"></ul>
+      </div>
+    </div>
 
-});
+    <!-- Notes Section with an icon -->
+    <div id="notes-section" class="section">
+      <h3><i class="fas fa-sticky-note"></i> Notes</h3>
+      <textarea id="notes-text" placeholder="Write your notes here..."></textarea>
+      <button id="save-notes" class="action-btn" onclick="saveNote()">Save Notes</button>
+      <button id="access-notes" class="action-btn" onclick="accessNotes()">Access Notes</button>
+    </div>
+
+    <!-- Goals Section Styling -->
+    <div id="goals-section">
+      <h3><i class="fas fa-trophy"></i> Monthly & Weekly Goals</h3>
+      <!-- Goal Input Section -->
+      <textarea id="goal-text" placeholder="Write your goal here..."></textarea>
+      <select id="goal-type">
+        <option value="monthly">Monthly Goal</option>
+        <option value="weekly">Weekly Goal</option>
+      </select>
+      <button id="save-goal">Save Goal</button>
+
+      <!-- Goal List Section -->
+      <div id="goal-list">
+        <h4>Monthly Goals</h4>
+        <ul id="monthly-goals-list"></ul>
+        <h4>Weekly Goals</h4>
+        <ul id="weekly-goals-list"></ul>
+      </div>
+    </div>
+
+  <!-- Link to JavaScript file -->
+  <script src="script.js"></script>
+</body>
+</html>
