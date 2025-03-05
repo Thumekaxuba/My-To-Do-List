@@ -1,9 +1,3 @@
-// Function to redirect to notes.html to view saved notes
-function accessNotes() {
-  window.location.href = 'notes.html';  // Redirect to notes.html
-}
-
-// Existing code for handling tasks, goals, and saving notes...
 document.addEventListener("DOMContentLoaded", () => {
   const todoInput = document.getElementById("todo-input");
   const todoDate = document.getElementById("todo-date");
@@ -16,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const goalsText = document.getElementById("goals-text");
   const goalProgress = document.getElementById("goal-progress");
   const progressValue = document.getElementById("progress-value");
+  const goalsList = document.getElementById("goals-list");  // The list to display saved goals
 
   const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
 
@@ -139,4 +134,35 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Save Goal
+  saveGoalsButton.addEventListener("click", saveGoal);
+
+  // Function to save goal and display it in the list
+  function saveGoal() {
+    const goalText = goalsText.value;
+    const currentGoalProgress = goalProgress.value;
+    
+    if (goalText.trim() !== "") {
+      // Get existing goals from localStorage or create an empty array if none exist
+      const savedGoals = JSON.parse(localStorage.getItem('goals')) || [];
+      
+      // Add the new goal with progress
+      savedGoals.push({ goal: goalText, progress: currentGoalProgress });
+      
+      // Save the updated goals array back to localStorage
+      localStorage.setItem('goals', JSON.stringify(savedGoals));
+      
+      // Add the goal to the list in the UI
+      const goalElement = document.createElement("li");
+      goalElement.textContent = `${goalText} - Progress: ${currentGoalProgress}%`;
+      goalsList.appendChild(goalElement);
+      
+      // Clear the goal input and progress field after saving
+      goalsText.value = '';
+      goalProgress.value = '';
+      alert("Goal saved successfully!");
+    } else {
+      alert("Please enter a goal before saving.");
+    }
+  }
 });
