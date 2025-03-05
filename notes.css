@@ -1,39 +1,42 @@
 /* General Styles */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  font-family: 'Poppins', Arial, sans-serif;
+  background-color: #fdf2f2;
+  color: #333;
   margin: 0;
   padding: 0;
 }
 
-h1 {
-  text-align: center;
-  color: #333;
-  margin-top: 20px;
-}
-
-/* Notes Container */
 .notes-container {
-  background-color: #fff;
-  width: 80%;
   max-width: 900px;
   margin: 20px auto;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f1a7c1;
+  background: linear-gradient(135deg, #ffcccc, #f1a7c1);
 }
 
+h1 {
+  text-align: center;
+  font-size: 2.5em;
+  color: #ff5b8f;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Notes List */
 #notes-list {
   margin-top: 20px;
 }
 
-/* Note Item Styles */
 .note-item {
-  background-color: #fafafa;
+  background-color: #fffdca;
+  border-radius: 10px;
   padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .note-item p {
@@ -41,22 +44,47 @@ h1 {
 }
 
 .note-item strong {
-  color: #0073e6;
+  color: #ff5b8f;
 }
 
-/* Button Styles */
 button {
-  background-color: #0073e6;
-  color: #fff;
+  background-color: #ff5b8f;
+  color: white;
+  padding: 12px 18px;
   border: none;
-  padding: 10px 20px;
-  font-size: 16px;
+  border-radius: 8px;
   cursor: pointer;
-  border-radius: 5px;
+  font-size: 1.1em;
+  transition: background-color 0.3s ease;
   display: block;
   margin: 20px auto;
 }
 
 button:hover {
-  background-color: #005bb5;
+  background-color: #f04c79;
+}
+
+/* Button for going back */
+button:focus {
+  outline: none;
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .notes-container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .note-item {
+    width: 100%;
+    padding: 10px;
+  }
 }
