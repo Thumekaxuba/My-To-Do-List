@@ -91,9 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const goalTextValue = goalText.value.trim();
     const goalTypeValue = goalType.value;
 
-    console.log("Goal Text:", goalTextValue); // Debugging
-    console.log("Goal Type:", goalTypeValue); // Debugging
-
     if (!goalTextValue) {
       alert("Please enter a goal.");
       return;
@@ -113,12 +110,14 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("notesData", JSON.stringify(notesData));
     alert("Note saved!");
     notesText.value = "";
-    
+
     // Redirect after saving note
     setTimeout(() => {
       window.location.href = "notes.html";
     }, 500);
   });
 
-  loadGoals(); // Load goals on page load
+  // Load goals on page load
+  loadGoals(); 
+
 });
