@@ -88,6 +88,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const goalTextValue = goalText.value.trim();
     const goalTypeValue = goalType.value;
 
+    console.log("Goal Text:", goalTextValue); // Debugging
+    console.log("Goal Type:", goalTypeValue); // Debugging
+
     if (!goalTextValue) {
       alert("Please enter a goal.");
       return;
