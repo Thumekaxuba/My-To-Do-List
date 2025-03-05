@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const saveGoalButton = document.getElementById("save-goal");
   const monthlyGoalsList = document.getElementById("monthly-goals-list");
   const weeklyGoalsList = document.getElementById("weekly-goals-list");
+  
+  const saveNotesButton = document.getElementById("save-notes");
+  const notesText = document.getElementById("notes-text");
 
   // Load existing goals from localStorage
   function loadGoals() {
@@ -54,23 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return goalElement;
   }
 
-  // Save Notes
-saveNotesButton.addEventListener("click", () => {
-  const now = new Date();
-  const timestamp = now.toLocaleString();
-  const notesData = JSON.parse(localStorage.getItem("notesData")) || [];
-  notesData.push({ text: notesText.value, date: timestamp });
-  localStorage.setItem("notesData", JSON.stringify(notesData));
-  alert("Note saved!");
-  notesText.value = "";
-  
-  // Redirect after saving note
-  setTimeout(() => {
-    window.location.href = "notes.html";
-  }, 500);
-});
-
-
   // Save goal to localStorage
   function saveGoal(text, type) {
     const goals = JSON.parse(localStorage.getItem("goals")) || { monthly: [], weekly: [] };
@@ -116,6 +102,22 @@ saveNotesButton.addEventListener("click", () => {
     saveGoal(goalTextValue, goalTypeValue);
     goalText.value = ""; // Clear input after saving
     loadGoals(); // Reload goals after adding
+  });
+
+  // Save Notes
+  saveNotesButton.addEventListener("click", () => {
+    const now = new Date();
+    const timestamp = now.toLocaleString();
+    const notesData = JSON.parse(localStorage.getItem("notesData")) || [];
+    notesData.push({ text: notesText.value, date: timestamp });
+    localStorage.setItem("notesData", JSON.stringify(notesData));
+    alert("Note saved!");
+    notesText.value = "";
+    
+    // Redirect after saving note
+    setTimeout(() => {
+      window.location.href = "notes.html";
+    }, 500);
   });
 
   loadGoals(); // Load goals on page load
