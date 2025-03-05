@@ -1,0 +1,21 @@
+# To-Do List App
+
+This project is a simple web application that allows users to manage their to-do tasks, set goals, and take notes. The app allows users to add, edit, and delete tasks, as well as track and store their goals with progress. It also provides a section to save notes with timestamps.
+
+## Features
+
+- **Task Management**: Add, edit, delete, and mark tasks as completed.
+- **Goal Setting**: Set goals, track progress, and store them locally.
+- **Note Taking**: Save notes with the current date and time.
+
+## Technologies Used
+
+- **HTML**: For structuring the content of the pages.
+- **CSS**: For styling and layout.
+- **JavaScript**: For dynamic interactions and functionality.
+
+## How to Use
+
+1. **Add a Task**: Type your task in the input field, select a date, and click the "Add Task" button. Tasks will be added to today's or upcoming tasks list.
+2. **Save a Goal**: Enter a goal in the input field, set a progress value, and click the "Save Goal" button. The goal will be saved and displayed in the list.
+3. **Save Notes**: Enter your notes in the textarea 
