@@ -1,3 +1,9 @@
+// Function to redirect to notes.html to view saved notes
+function accessNotes() {
+  window.location.href = 'notes.html';  // Redirect to notes.html
+}
+
+// Existing code for handling tasks, goals, and saving notes...
 document.addEventListener("DOMContentLoaded", () => {
   const todoInput = document.getElementById("todo-input");
   const todoDate = document.getElementById("todo-date");
@@ -107,23 +113,6 @@ document.addEventListener("DOMContentLoaded", () => {
   addTodoButton.addEventListener("click", addTask);
   loadTasks();
 
-  // Save Goals
-  saveGoalsButton.addEventListener("click", () => {
-    localStorage.setItem("goals", goalsText.value);
-    alert("Goals saved!");
-  });
-
-  // Load Goals
-  function loadGoals() {
-    goalsText.value = localStorage.getItem("goals") || "";
-  }
-  loadGoals();
-
-  // Update Progress Bar
-  goalProgress.addEventListener("input", () => {
-    progressValue.textContent = goalProgress.value + "%";
-  });
-
   // Save Notes
   document.getElementById("save-notes").addEventListener("click", saveNote);
 
@@ -150,8 +139,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Function to redirect to notes.html to view saved notes
-  document.getElementById("access-notes").addEventListener("click", () => {
-    window.location.href = 'notes.html';  // Redirect to notes.html
-  });
 });
