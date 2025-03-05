@@ -1,0 +1,62 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-top: 20px;
+}
+
+/* Notes Container */
+.notes-container {
+  background-color: #fff;
+  width: 80%;
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+#notes-list {
+  margin-top: 20px;
+}
+
+/* Note Item Styles */
+.note-item {
+  background-color: #fafafa;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.note-item p {
+  margin: 5px 0;
+}
+
+.note-item strong {
+  color: #0073e6;
+}
+
+/* Button Styles */
+button {
+  background-color: #0073e6;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  display: block;
+  margin: 20px auto;
+}
+
+button:hover {
+  background-color: #005bb5;
+}
