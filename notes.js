@@ -1,123 +1,56 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const goalText = document.getElementById("goal-text");
-  const goalType = document.getElementById("goal-type");
-  const saveGoalButton = document.getElementById("save-goal");
-  const monthlyGoalsList = document.getElementById("monthly-goals-list");
-  const weeklyGoalsList = document.getElementById("weekly-goals-list");
-  
-  const saveNotesButton = document.getElementById("save-notes");
-  const notesText = document.getElementById("notes-text");
+// Function to save the note with the current date
+function saveNote() {
+  const noteText = document.getElementById('notes-text').value;
+  const date = new Date().toLocaleString(); // Get the current date and time
+  if (noteText) {
+    // Get saved notes from localStorage, or initialize an empty array if none exist
+    let notes = JSON.parse(localStorage.getItem('notes')) || [];
 
-  // Load existing goals from localStorage
-  function loadGoals() {
-    const goals = JSON.parse(localStorage.getItem("goals")) || { monthly: [], weekly: [] };
+    // Create a new note object
+    const newNote = {
+      text: noteText,
+      date: date
+    };
 
-    // Display monthly goals
-    monthlyGoalsList.innerHTML = "";
-    goals.monthly.forEach((goal) => {
-      const goalElement = createGoalElement(goal.text, goal.progress);
-      monthlyGoalsList.appendChild(goalElement);
-    });
+    // Push the new note into the notes array
+    notes.push(newNote);
 
-    // Display weekly goals
-    weeklyGoalsList.innerHTML = "";
-    goals.weekly.forEach((goal) => {
-      const goalElement = createGoalElement(goal.text, goal.progress);
-      weeklyGoalsList.appendChild(goalElement);
-    });
+    // Save the updated notes array back to localStorage
+    localStorage.setItem('notes', JSON.stringify(notes));
+
+    // Clear the textarea after saving
+    document.getElementById('notes-text').value = '';
+
+    // Redirect to notes page to view saved notes
+    window.location.href = 'notes.html';
+  } else {
+    alert('Please enter some notes before saving.');
   }
+}
 
-  // Create a goal element with progress bar
-  function createGoalElement(goalText, progress) {
-    const goalElement = document.createElement("li");
-    goalElement.classList.add("goal-item");
+// Function to display the notes on the notes page
+function displayNotes() {
+  const notesList = document.getElementById('notes-list');
+  const notes = JSON.parse(localStorage.getItem('notes')) || [];
 
-    const goalLabel = document.createElement("span");
-    goalLabel.textContent = goalText;
-    goalElement.appendChild(goalLabel);
+  // Clear the existing notes in the list
+  notesList.innerHTML = '';
 
-    const progressBarContainer = document.createElement("div");
-    progressBarContainer.classList.add("progress-bar-container");
-
-    const progressBar = document.createElement("input");
-    progressBar.type = "range";
-    progressBar.value = progress;
-    progressBar.max = 100;
-    progressBar.addEventListener("input", () => {
-      updateGoalProgress(goalText, progressBar.value);
-    });
-    progressBarContainer.appendChild(progressBar);
-
-    const progressValue = document.createElement("span");
-    progressValue.textContent = `${progress}%`;
-    progressBarContainer.appendChild(progressValue);
-
-    goalElement.appendChild(progressBarContainer);
-
-    return goalElement;
-  }
-
-  // Save goal to localStorage
-  function saveGoal(text, type) {
-    const goals = JSON.parse(localStorage.getItem("goals")) || { monthly: [], weekly: [] };
-
-    const newGoal = { text, progress: 0 };
-
-    if (type === "monthly") {
-      goals.monthly.push(newGoal);
-    } else if (type === "weekly") {
-      goals.weekly.push(newGoal);
-    }
-
-    localStorage.setItem("goals", JSON.stringify(goals));
-  }
-
-  // Update goal progress in localStorage
-  function updateGoalProgress(goalText, progress) {
-    const goals = JSON.parse(localStorage.getItem("goals")) || { monthly: [], weekly: [] };
-
-    const allGoals = [...goals.monthly, ...goals.weekly];
-    const goalIndex = allGoals.findIndex(goal => goal.text === goalText);
-    
-    if (goalIndex !== -1) {
-      allGoals[goalIndex].progress = progress;
-      localStorage.setItem("goals", JSON.stringify(goals));
-      loadGoals(); // Reload goals after progress update
-    }
-  }
-
-  // Handle save goal button click
-  saveGoalButton.addEventListener("click", () => {
-    const goalTextValue = goalText.value.trim();
-    const goalTypeValue = goalType.value;
-
-    if (!goalTextValue) {
-      alert("Please enter a goal.");
-      return;
-    }
-
-    saveGoal(goalTextValue, goalTypeValue);
-    goalText.value = ""; // Clear input after saving
-    loadGoals(); // Reload goals after adding
+  // Loop through each saved note and display it
+  notes.forEach(note => {
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `<strong>${note.date}</strong>: ${note.text}`;
+    notesList.appendChild(listItem);
   });
+}
 
-  // Save Notes
-  saveNotesButton.addEventListener("click", () => {
-    const now = new Date();
-    const timestamp = now.toLocaleString();
-    const notesData = JSON.parse(localStorage.getItem("notesData")) || [];
-    notesData.push({ text: notesText.value, date: timestamp });
-    localStorage.setItem("notesData", JSON.stringify(notesData));
-    alert("Note saved!");
-    notesText.value = "";
+// Function to clear all notes
+function clearNotes() {
+  if (confirm('Are you sure you want to clear all notes?')) {
+    localStorage.removeItem('notes');
+    displayNotes(); // Refresh the list after clearing
+  }
+}
 
-    // Redirect after saving note
-    setTimeout(() => {
-      window.location.href = "notes.html";
-    }, 500);
-  });
-
-  // Load goals on page load
-  loadGoals(); 
-
-});
+// Display the notes when the page loads
+window.onload = displayNotes;
