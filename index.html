@@ -41,18 +41,27 @@
       <button id="save-notes" class="action-btn">Save Notes</button>
     </div>
 
-    <!-- Goals Section with icons -->
-    <div id="goals-section" class="section">
-      <h3><i class="fas fa-trophy"></i> Monthly & Weekly Goals</h3>
-      <textarea id="goals-text" placeholder="Write your monthly and weekly goals here..."></textarea>
-      <button id="save-goals" class="action-btn">Save Goals</button>
-      <div id="progress-bar">
-        <label for="goal-progress">Progress:</label>
-        <input type="range" id="goal-progress" value="0" max="100">
-        <span id="progress-value">0%</span>
-      </div>
-    </div>
+    <!-- Goals Section Styling -->
+<div id="goals-section">
+  <h3><i class="fas fa-trophy"></i> Monthly & Weekly Goals</h3>
+  
+  <!-- Goal Input Section -->
+  <textarea id="goal-text" placeholder="Write your goal here..."></textarea>
+  <select id="goal-type">
+    <option value="monthly">Monthly Goal</option>
+    <option value="weekly">Weekly Goal</option>
+  </select>
+  <button id="save-goal">Save Goal</button>
+
+  <!-- Goal List Section -->
+  <div id="goal-list">
+    <h4>Monthly Goals</h4>
+    <ul id="monthly-goals-list"></ul>
+    <h4>Weekly Goals</h4>
+    <ul id="weekly-goals-list"></ul>
   </div>
+</div>
+
 
   <!-- Link to JavaScript file -->
   <script src="script.js"></script>
