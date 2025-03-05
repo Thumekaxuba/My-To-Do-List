@@ -6,8 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const upcomingTasksList = document.getElementById("upcoming-tasks-list"); // Upcoming tasks
   const focusModeButton = document.getElementById("focus-mode");
   const todoContainer = document.querySelector(".todo-container");
-  const saveNotesButton = document.getElementById("save-notes");
-  const notesText = document.getElementById("notes-text");
   const saveGoalsButton = document.getElementById("save-goals");
   const goalsText = document.getElementById("goals-text");
   const goalProgress = document.getElementById("goal-progress");
@@ -108,20 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   addTodoButton.addEventListener("click", addTask);
   loadTasks();
-
-  // Save Notes
-  saveNotesButton.addEventListener("click", () => {
-    const now = new Date();
-    const timestamp = now.toLocaleString();
-    const notesData = JSON.parse(localStorage.getItem("notesData")) || [];
-    notesData.push({ text: notesText.value, date: timestamp });
-    localStorage.setItem("notesData", JSON.stringify(notesData));
-    alert("Note saved!");
-    notesText.value = "";
-    setTimeout(() => {
-      window.location.href = "notes.html";
-    }, 500);
-  });
 
   // Save Goals
   saveGoalsButton.addEventListener("click", () => {
