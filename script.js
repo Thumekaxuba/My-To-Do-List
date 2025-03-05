@@ -1,9 +1,3 @@
-// Function to redirect to notes.html to view saved notes
-function accessNotes() {
-  window.location.href = 'notes.html';  // Redirect to notes.html
-}
-
-// Existing code for handling tasks, goals, and saving notes...
 document.addEventListener("DOMContentLoaded", () => {
   const todoInput = document.getElementById("todo-input");
   const todoDate = document.getElementById("todo-date");
@@ -11,11 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const todayTasksList = document.getElementById("todo-list"); // Today's tasks
   const upcomingTasksList = document.getElementById("upcoming-tasks-list"); // Upcoming tasks
   const focusModeButton = document.getElementById("focus-mode");
-  const todoContainer = document.querySelector(".todo-container");
-  const saveGoalsButton = document.getElementById("save-goals");
-  const goalsText = document.getElementById("goals-text");
-  const goalProgress = document.getElementById("goal-progress");
-  const progressValue = document.getElementById("progress-value");
+  const saveGoalsButton = document.getElementById("save-goal");
+  const goalsText = document.getElementById("goal-text");
+  const goalType = document.getElementById("goal-type");
+  const monthlyGoalsList = document.getElementById("monthly-goals-list");
+  const weeklyGoalsList = document.getElementById("weekly-goals-list");
 
   const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
 
@@ -110,33 +104,67 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }
 
+  // Add event listener to Add Task button
   addTodoButton.addEventListener("click", addTask);
   loadTasks();
 
-  // Save Notes
-  document.getElementById("save-notes").addEventListener("click", saveNote);
+  // Save Goal function
+  function saveGoal() {
+    const goalText = goalsText.value;
+    const goalCategory = goalType.value;
 
-  // Function to save notes with the current date
-  function saveNote() {
-    const noteText = document.getElementById('notes-text').value;
-    const currentDate = new Date().toLocaleString();  // Get the current date and time
-    
-    if (noteText.trim() !== "") {
-      // Get existing notes from localStorage or create an empty array if none exist
-      const savedNotes = JSON.parse(localStorage.getItem('notes')) || [];
-      
-      // Add the new note with the current date
-      savedNotes.push({ note: noteText, date: currentDate });
-      
-      // Save the updated notes array back to localStorage
-      localStorage.setItem('notes', JSON.stringify(savedNotes));
-      
-      // Clear the textarea after saving
-      document.getElementById('notes-text').value = '';
-      alert("Note saved successfully!");
-    } else {
-      alert("Please write a note before saving.");
+    if (goalText.trim() === "") {
+      alert("Please enter a goal before saving.");
+      return;
     }
+
+    const goals = JSON.parse(localStorage.getItem("goals")) || {
+      monthly: [],
+      weekly: [],
+    };
+
+    // Add the goal to the appropriate category (monthly or weekly)
+    goals[goalCategory].push(goalText);
+
+    // Save the updated goals list to localStorage
+    localStorage.setItem("goals", JSON.stringify(goals));
+
+    // Clear the input field after saving
+    goalsText.value = "";
+
+    alert("Goal saved successfully!");
+    displayGoals();  // Update the displayed goals list
   }
 
+  // Display goals from localStorage
+  function displayGoals() {
+    const savedGoals = JSON.parse(localStorage.getItem("goals")) || {
+      monthly: [],
+      weekly: [],
+    };
+
+    // Clear the current goal lists
+    monthlyGoalsList.innerHTML = "";
+    weeklyGoalsList.innerHTML = "";
+
+    // Add monthly goals to the list
+    savedGoals.monthly.forEach(goal => {
+      const goalElement = document.createElement("li");
+      goalElement.textContent = goal;
+      monthlyGoalsList.appendChild(goalElement);
+    });
+
+    // Add weekly goals to the list
+    savedGoals.weekly.forEach(goal => {
+      const goalElement = document.createElement("li");
+      goalElement.textContent = goal;
+      weeklyGoalsList.appendChild(goalElement);
+    });
+  }
+
+  // Add event listener to Save Goal button
+  saveGoalsButton.addEventListener("click", saveGoal);
+
+  // Load the goals when the page is loaded
+  displayGoals();
 });
