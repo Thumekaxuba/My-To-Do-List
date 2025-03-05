@@ -54,6 +54,23 @@ document.addEventListener("DOMContentLoaded", () => {
     return goalElement;
   }
 
+  // Save Notes
+saveNotesButton.addEventListener("click", () => {
+  const now = new Date();
+  const timestamp = now.toLocaleString();
+  const notesData = JSON.parse(localStorage.getItem("notesData")) || [];
+  notesData.push({ text: notesText.value, date: timestamp });
+  localStorage.setItem("notesData", JSON.stringify(notesData));
+  alert("Note saved!");
+  notesText.value = "";
+  
+  // Redirect after saving note
+  setTimeout(() => {
+    window.location.href = "notes.html";
+  }, 500);
+});
+
+
   // Save goal to localStorage
   function saveGoal(text, type) {
     const goals = JSON.parse(localStorage.getItem("goals")) || { monthly: [], weekly: [] };
